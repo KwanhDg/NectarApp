@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function HomeScreen({ navigation }) {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <Image
@@ -44,44 +44,46 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.seeAllText}>See all</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
-        <TouchableOpacity
-          style={styles.productCard}
-          onPress={() => navigation.navigate('ProductDetail')}
-        >
-          <Image
-            source={require('../assets/images/banana.jpg')}
-            style={styles.productImage}
-            resizeMode='contain'
-          />
-          <Text style={styles.productName}>Organic Bananas</Text>
-          <Text style={styles.productWeight}>7pcs, Priceg</Text>
-          <View style={styles.priceContainer}>
-            <Text style={styles.productPrice}>$4.99</Text>
-            <TouchableOpacity style={styles.addButton}>
-              <Icon name="add" size={20} color="#fff" />
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.productCard}
-          onPress={() => navigation.navigate('ProductDetail')}
-        >
-          <Image
-            source={require('../assets/images/apple.png')}
-            style={styles.productImage}
-            resizeMode='contain'
-          />
-          <Text style={styles.productName}>Red Apple</Text>
-          <Text style={styles.productWeight}>1kg, Priceg</Text>
-          <View style={styles.priceContainer}>
-            <Text style={styles.productPrice}>$4.99</Text>
-            <TouchableOpacity style={styles.addButton}>
-              <Icon name="add" size={20} color="#fff" />
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
+      <View style={styles.horizontalScrollContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <TouchableOpacity
+            style={styles.productCard}
+            onPress={() => navigation.navigate('ProductDetail')}
+          >
+            <Image
+              source={require('../assets/images/banana.jpg')}
+              style={styles.productImage}
+              resizeMode='contain'
+            />
+            <Text style={styles.productName}>Organic Bananas</Text>
+            <Text style={styles.productWeight}>7pcs, Priceg</Text>
+            <View style={styles.priceContainer}>
+              <Text style={styles.productPrice}>$4.99</Text>
+              <TouchableOpacity style={styles.addButton}>
+                <Icon name="add" size={20} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.productCard}
+            onPress={() => navigation.navigate('ProductDetail')}
+          >
+            <Image
+              source={require('../assets/images/apple.png')}
+              style={styles.productImage}
+              resizeMode='contain'
+            />
+            <Text style={styles.productName}>Red Apple</Text>
+            <Text style={styles.productWeight}>1kg, Priceg</Text>
+            <View style={styles.priceContainer}>
+              <Text style={styles.productPrice}>$4.99</Text>
+              <TouchableOpacity style={styles.addButton}>
+                <Icon name="add" size={20} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
 
       {/* Best Selling */}
       <View style={styles.sectionHeader}>
@@ -90,38 +92,40 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.seeAllText}>See all</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
-        <TouchableOpacity style={styles.productCard}>
-          <Image
-            source={require('../assets/images/pepper.png')}
-            style={styles.productImage}
-            resizeMode='contain'
-          />
-          <Text style={styles.productName}>Pepper</Text>
-          <Text style={styles.productWeight}>1kg, Priceg</Text>
-          <View style={styles.priceContainer}>
-            <Text style={styles.productPrice}>$4.99</Text>
-            <TouchableOpacity style={styles.addButton}>
-              <Icon name="add" size={20} color="#fff" />
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.productCard}>
-          <Image
-            source={require('../assets/images/ginger.png')}
-            style={styles.productImage}
-            resizeMode='contain'
-          />
-          <Text style={styles.productName}>Ginger</Text>
-          <Text style={styles.productWeight}>1kg, Priceg</Text>
-          <View style={styles.priceContainer}>
-            <Text style={styles.productPrice}>$4.99</Text>
-            <TouchableOpacity style={styles.addButton}>
-              <Icon name="add" size={20} color="#fff" />
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
+      <View style={styles.horizontalScrollContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <TouchableOpacity style={styles.productCard}>
+            <Image
+              source={require('../assets/images/pepper.png')}
+              style={styles.productImage}
+              resizeMode='contain'
+            />
+            <Text style={styles.productName}>Pepper</Text>
+            <Text style={styles.productWeight}>1kg, Priceg</Text>
+            <View style={styles.priceContainer}>
+              <Text style={styles.productPrice}>$4.99</Text>
+              <TouchableOpacity style={styles.addButton}>
+                <Icon name="add" size={20} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.productCard}>
+            <Image
+              source={require('../assets/images/ginger.png')}
+              style={styles.productImage}
+              resizeMode='contain'
+            />
+            <Text style={styles.productName}>Ginger</Text>
+            <Text style={styles.productWeight}>1kg, Priceg</Text>
+            <View style={styles.priceContainer}>
+              <Text style={styles.productPrice}>$4.99</Text>
+              <TouchableOpacity style={styles.addButton}>
+                <Icon name="add" size={20} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
 
       {/* Groceries */}
       <View style={styles.sectionHeader}>
@@ -130,64 +134,68 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.seeAllText}>See all</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
-        <TouchableOpacity style={styles.groceryCard}>
-          <Image
-            source={require('../assets/images/pulses.png')}
-            style={styles.groceryImage}
-            resizeMode='contain'
-          />
-          <Text style={styles.groceryName}>Pulses</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.groceryCard}>
-          <Image
-            source={require('../assets/images/rice.png')}
-            style={styles.groceryImage}
-            resizeMode='contain'
-          />
-          <Text style={styles.groceryName}>Rice</Text>
-        </TouchableOpacity>
-      </ScrollView>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
-        <TouchableOpacity style={styles.productCard}>
-          <Image
-            source={require('../assets/images/beef.png')}
-            style={styles.productImage}
-            resizeMode='contain'
-          />
-          <Text style={styles.productName}>Beef Bone</Text>
-          <Text style={styles.productWeight}>1kg, Priceg</Text>
-          <View style={styles.priceContainer}>
-            <Text style={styles.productPrice}>$4.99</Text>
-            <TouchableOpacity style={styles.addButton}>
-              <Icon name="add" size={20} color="#fff" />
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.productCard}>
-          <Image
-            source={require('../assets/images/chicken.png')}
-            style={styles.productImage}
-            resizeMode='contain'
-          />
-          <Text style={styles.productName}>Broiler Chicken</Text>
-          <Text style={styles.productWeight}>1kg, Priceg</Text>
-          <View style={styles.priceContainer}>
-            <Text style={styles.productPrice}>$4.99</Text>
-            <TouchableOpacity style={styles.addButton}>
-              <Icon name="add" size={20} color="#fff" />
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
-    </View>
+      <View style={styles.horizontalScrollContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <TouchableOpacity style={styles.groceryCard}>
+            <Image
+              source={require('../assets/images/pulses.png')}
+              style={styles.groceryImage}
+              resizeMode='contain'
+            />
+            <Text style={styles.groceryName}>Pulses</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.groceryCard}>
+            <Image
+              source={require('../assets/images/rice.png')}
+              style={styles.groceryImage}
+              resizeMode='contain'
+            />
+            <Text style={styles.groceryName}>Rice</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+      <View style={styles.horizontalScrollContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <TouchableOpacity style={styles.productCard}>
+            <Image
+              source={require('../assets/images/beef.png')}
+              style={styles.productImage}
+              resizeMode='contain'
+            />
+            <Text style={styles.productName}>Beef Bone</Text>
+            <Text style={styles.productWeight}>1kg, Priceg</Text>
+            <View style={styles.priceContainer}>
+              <Text style={styles.productPrice}>$4.99</Text>
+              <TouchableOpacity style={styles.addButton}>
+                <Icon name="add" size={20} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.productCard}>
+            <Image
+              source={require('../assets/images/chicken.png')}
+              style={styles.productImage}
+              resizeMode='contain'
+            />
+            <Text style={styles.productName}>Broiler Chicken</Text>
+            <Text style={styles.productWeight}>1kg, Priceg</Text>
+            <View style={styles.priceContainer}>
+              <Text style={styles.productPrice}>$4.99</Text>
+              <TouchableOpacity style={styles.addButton}>
+                <Icon name="add" size={20} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFF',
     top: 50,
   },
   header: {
@@ -251,42 +259,43 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#53B175',
   },
-  horizontalScroll: {
+  horizontalScrollContainer: {
+    height: 240,
     marginBottom: 20,
   },
   productCard: {
     backgroundColor: '#fff',
     borderRadius: 10,
+    borderWidth: 0.2,
     padding: 10,
     marginHorizontal: 10,
     width: 150,
-    minHeight: 300, // Đảm bảo chiều cao đủ để chứa toàn bộ nội dung
-    alignItems: 'center', // Căn giữa nội dung
+    minHeight: 200,
   },
   productImage: {
     width: 100,
     height: 100,
-    resizeMode: 'contain', // Đảm bảo ảnh không bị méo
+    resizeMode: 'contain',
   },
   productName: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
     marginTop: 10,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   productWeight: {
     fontSize: 14,
     color: '#666',
     marginVertical: 5,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginTop: 20, // Thêm khoảng cách để tránh cắt nội dung
+    marginTop: 20,
   },
   productPrice: {
     fontSize: 16,
@@ -307,7 +316,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 10,
     width: 150,
-    minHeight: 150, // Đảm bảo chiều cao đủ cho groceryCard
+    minHeight: 150,
     alignItems: 'center',
   },
   groceryImage: {
