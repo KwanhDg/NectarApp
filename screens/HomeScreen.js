@@ -134,9 +134,9 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.seeAllText}>See all</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.horizontalScrollContainer}>
+      <View style={styles.horizontalScrollContainer1}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <TouchableOpacity style={styles.groceryCard}>
+          <TouchableOpacity style={[styles.groceryCard, { backgroundColor: '#FFF3E0' }]}>
             <Image
               source={require('../assets/images/pulses.png')}
               style={styles.groceryImage}
@@ -144,7 +144,7 @@ export default function HomeScreen({ navigation }) {
             />
             <Text style={styles.groceryName}>Pulses</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.groceryCard}>
+          <TouchableOpacity style={[styles.groceryCard, { backgroundColor: '#E6F0FA' }]}>
             <Image
               source={require('../assets/images/rice.png')}
               style={styles.groceryImage}
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
-    top: 50,
+    paddingTop: 50,
   },
   header: {
     alignItems: 'center',
@@ -276,6 +276,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     resizeMode: 'contain',
+    alignSelf: 'center',
   },
   productName: {
     fontSize: 16,
@@ -310,25 +311,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  horizontalScrollContainer1: {
+    height: 150, 
+  },
   groceryCard: {
-    backgroundColor: '#FFF3E0',
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: 10,
     padding: 10,
     marginHorizontal: 10,
-    width: 150,
-    minHeight: 150,
-    alignItems: 'center',
+    width: 220,
+    height: 100, 
   },
   groceryImage: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     resizeMode: 'contain',
+    marginRight: 10,
   },
   groceryName: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
-    marginTop: 10,
-    textAlign: 'center',
   },
 });

@@ -13,40 +13,44 @@ export default function ProductDetailScreen({ navigation }) {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Icon name="arrow-back" size={24} color="#000" />
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Icon name="favorite-border" size={24} color="#000" />
-          </TouchableOpacity>
         </View>
 
         {/* Product Image */}
         <Image
-          source={require('../assets/images/apple.png')}
+          source={require('../assets/images/apple1.png')}
           style={styles.productImage}
-          resizeMode='contain'
+          resizeMode="contain"
         />
 
         {/* Product Info */}
         <View style={styles.productInfo}>
-          <Text style={styles.productName}>Natural Red Apple</Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.productName}>Natural Red Apple</Text>
+            <TouchableOpacity>
+              <Icon name="favorite-border" size={24} color="#000" />
+            </TouchableOpacity>
+          </View>
           <Text style={styles.productWeight}>1kg, Price</Text>
           <View style={styles.quantityContainer}>
-            <TouchableOpacity
-              onPress={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
-            >
-              <Icon name="remove" size={24} color="#000" />
-            </TouchableOpacity>
-            <Text style={styles.quantityText}>{quantity}</Text>
-            <TouchableOpacity onPress={() => setQuantity(quantity + 1)}>
-              <Icon name="add" size={24} color="#000" />
-            </TouchableOpacity>
-            <Text style={styles.productPrice}>${4.99 * quantity}</Text>
+            <View style={styles.quantitySelector}>
+              <TouchableOpacity
+                onPress={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
+              >
+                <Icon name="remove" size={24} color="#000" />
+              </TouchableOpacity>
+              <Text style={styles.quantityText}>{quantity}</Text>
+              <TouchableOpacity onPress={() => setQuantity(quantity + 1)}>
+                <Icon name="add" size={24} color="#000" />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.productPrice}>${(4.99 * quantity).toFixed(2)}</Text>
           </View>
         </View>
 
         {/* Product Details */}
         <TouchableOpacity style={styles.detailSection}>
           <Text style={styles.detailTitle}>Product Detail</Text>
-          <Icon name="keyboard-arrow-down" size={24} color="#000" />
+          <Icon name="keyboard-arrow-right" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.detailText}>
           Apples May Be Good for Weight Loss. Apples Are Good for Your Heart. As Part of a Healthful and Varied Diet.
@@ -55,7 +59,7 @@ export default function ProductDetailScreen({ navigation }) {
         {/* Nutrition */}
         <TouchableOpacity style={styles.detailSection}>
           <Text style={styles.detailTitle}>Nutritions</Text>
-          <Icon name="keyboard-arrow-down" size={24} color="#000" />
+          <Icon name="keyboard-arrow-right" size={24} color="#000" />
         </TouchableOpacity>
 
         {/* Review */}
@@ -86,8 +90,10 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
+    justifyContent: 'flex-start',
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    paddingBottom: 10,
   },
   productImage: {
     width: '100%',
@@ -95,7 +101,13 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   productInfo: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   productName: {
     fontSize: 24,
@@ -111,12 +123,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  quantitySelector: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
   },
   quantityText: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
-    marginHorizontal: 20,
+    marginHorizontal: 10,
   },
   productPrice: {
     fontSize: 20,
@@ -152,7 +174,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   addButtonText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
   },

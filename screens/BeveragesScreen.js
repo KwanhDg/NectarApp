@@ -18,14 +18,15 @@ export default function BeveragesScreen({ navigation }) {
 
       {/* Product List */}
       <ScrollView
-        contentContainerStyle={styles.scrollContent} // Thêm contentContainerStyle để quản lý nội dung bên trong
-        showsVerticalScrollIndicator={false} // Ẩn thanh cuộn dọc nếu không cần thiết
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
       >
         <View style={styles.productRow}>
           <TouchableOpacity style={styles.productCard}>
             <Image
-              source={require('../assets/images/diet_coke.png')} // Thay bằng ảnh Diet Coke
+              source={require('../assets/images/diet_coke.png')}
               style={styles.productImage}
+              resizeMode="contain"
             />
             <Text style={styles.productName}>Diet Coke</Text>
             <Text style={styles.productWeight}>355ml, Price</Text>
@@ -38,8 +39,9 @@ export default function BeveragesScreen({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity style={styles.productCard}>
             <Image
-              source={require('../assets/images/sprite.png')} // Thay bằng ảnh Sprite
+              source={require('../assets/images/sprite.png')}
               style={styles.productImage}
+              resizeMode="contain"
             />
             <Text style={styles.productName}>Sprite Can</Text>
             <Text style={styles.productWeight}>325ml, Price</Text>
@@ -54,8 +56,9 @@ export default function BeveragesScreen({ navigation }) {
         <View style={styles.productRow}>
           <TouchableOpacity style={styles.productCard}>
             <Image
-              source={require('../assets/images/apple_juice.png')} // Thay bằng ảnh Apple Juice
+              source={require('../assets/images/apple_juice.png')}
               style={styles.productImage}
+              resizeMode="contain"
             />
             <Text style={styles.productName}>Apple & Grape Juice</Text>
             <Text style={styles.productWeight}>2L, Price</Text>
@@ -68,8 +71,9 @@ export default function BeveragesScreen({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity style={styles.productCard}>
             <Image
-              source={require('../assets/images/orange_juice.png')} // Thay bằng ảnh Orange Juice
+              source={require('../assets/images/orange_juice.png')}
               style={styles.productImage}
+              resizeMode="contain"
             />
             <Text style={styles.productName}>Orange Juice</Text>
             <Text style={styles.productWeight}>2L, Price</Text>
@@ -84,8 +88,9 @@ export default function BeveragesScreen({ navigation }) {
         <View style={styles.productRow}>
           <TouchableOpacity style={styles.productCard}>
             <Image
-              source={require('../assets/images/coca_cola.png')} // Thay bằng ảnh Coca Cola
+              source={require('../assets/images/coca_cola.png')}
               style={styles.productImage}
+              resizeMode="contain"
             />
             <Text style={styles.productName}>Coca Cola Can</Text>
             <Text style={styles.productWeight}>325ml, Price</Text>
@@ -98,8 +103,9 @@ export default function BeveragesScreen({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity style={styles.productCard}>
             <Image
-              source={require('../assets/images/pepsi.png')} // Thay bằng ảnh Pepsi
+              source={require('../assets/images/pepsi.png')}
               style={styles.productImage}
+              resizeMode="contain"
             />
             <Text style={styles.productName}>Pepsi Can</Text>
             <Text style={styles.productWeight}>325ml, Price</Text>
@@ -119,24 +125,26 @@ export default function BeveragesScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#fff', 
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#fff', // Thêm nền trắng cho header để rõ ràng hơn
-    borderBottomWidth: 1,
-    borderBottomColor: '#F5F5F5',
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    paddingBottom: 10,
+    backgroundColor: '#fff',
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
+    textAlign: 'center',
+    flex: 1, 
   },
   scrollContent: {
-    paddingBottom: 20, // Thêm padding để nội dung không bị che bởi bottom tab
+    paddingBottom: 20,
   },
   productRow: {
     flexDirection: 'row',
@@ -147,33 +155,39 @@ const styles = StyleSheet.create({
   productCard: {
     backgroundColor: '#fff',
     borderRadius: 10,
+    borderWidth: 0.2,
     padding: 10,
     width: '48%',
-    alignItems: 'center', // Căn giữa nội dung trong card
+    minHeight: 200,
+    alignItems: 'center', 
   },
   productImage: {
     width: 100,
     height: 100,
-    resizeMode: 'contain', // Đảm bảo ảnh không bị méo
+    resizeMode: 'contain',
+    alignSelf: 'center', 
   },
   productName: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
     marginTop: 10,
-    textAlign: 'center',
+    textAlign: 'left', 
+    alignSelf: 'flex-start', 
   },
   productWeight: {
     fontSize: 14,
     color: '#666',
     marginVertical: 5,
-    textAlign: 'center',
+    textAlign: 'left', 
+    alignSelf: 'flex-start', 
   },
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
+    marginTop: 20, 
   },
   productPrice: {
     fontSize: 16,
