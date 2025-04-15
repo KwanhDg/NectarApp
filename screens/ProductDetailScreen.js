@@ -20,8 +20,9 @@ export default function ProductDetailScreen({ navigation }) {
 
         {/* Product Image */}
         <Image
-          source={require('../assets/images/apple.png')} // Thay bằng ảnh táo
+          source={require('../assets/images/apple.png')}
           style={styles.productImage}
+          resizeMode='contain'
         />
 
         {/* Product Info */}

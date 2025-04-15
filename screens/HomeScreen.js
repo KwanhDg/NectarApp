@@ -10,6 +10,7 @@ export default function HomeScreen({ navigation }) {
         <Image
           source={require('../assets/images/carrot_icon.png')}
           style={styles.headerIcon}
+          resizeMode='contain'
         />
         <View style={styles.locationContainer}>
           <Icon name="location-on" size={20} color="#53B175" />
@@ -32,6 +33,7 @@ export default function HomeScreen({ navigation }) {
         <Image
           source={require('../assets/images/banner.png')}
           style={styles.bannerImage}
+          resizeMode='contain'
         />
       </View>
 
@@ -50,6 +52,7 @@ export default function HomeScreen({ navigation }) {
           <Image
             source={require('../assets/images/banana.jpg')}
             style={styles.productImage}
+            resizeMode='contain'
           />
           <Text style={styles.productName}>Organic Bananas</Text>
           <Text style={styles.productWeight}>7pcs, Priceg</Text>
@@ -67,6 +70,7 @@ export default function HomeScreen({ navigation }) {
           <Image
             source={require('../assets/images/apple.png')}
             style={styles.productImage}
+            resizeMode='contain'
           />
           <Text style={styles.productName}>Red Apple</Text>
           <Text style={styles.productWeight}>1kg, Priceg</Text>
@@ -89,10 +93,11 @@ export default function HomeScreen({ navigation }) {
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
         <TouchableOpacity style={styles.productCard}>
           <Image
-            source={require('../assets/images/strawberry.png')} // Thay bằng ảnh dâu
+            source={require('../assets/images/pepper.png')}
             style={styles.productImage}
+            resizeMode='contain'
           />
-          <Text style={styles.productName}>Strawberry</Text>
+          <Text style={styles.productName}>Pepper</Text>
           <Text style={styles.productWeight}>1kg, Priceg</Text>
           <View style={styles.priceContainer}>
             <Text style={styles.productPrice}>$4.99</Text>
@@ -103,8 +108,9 @@ export default function HomeScreen({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity style={styles.productCard}>
           <Image
-            source={require('../assets/images/ginger.png')} // Thay bằng ảnh gừng
+            source={require('../assets/images/ginger.png')}
             style={styles.productImage}
+            resizeMode='contain'
           />
           <Text style={styles.productName}>Ginger</Text>
           <Text style={styles.productWeight}>1kg, Priceg</Text>
@@ -127,15 +133,17 @@ export default function HomeScreen({ navigation }) {
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
         <TouchableOpacity style={styles.groceryCard}>
           <Image
-            source={require('../assets/images/pulses.png')} // Thay bằng ảnh pulses
+            source={require('../assets/images/pulses.png')}
             style={styles.groceryImage}
+            resizeMode='contain'
           />
           <Text style={styles.groceryName}>Pulses</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.groceryCard}>
           <Image
-            source={require('../assets/images/rice.png')} // Thay bằng ảnh rice
+            source={require('../assets/images/rice.png')}
             style={styles.groceryImage}
+            resizeMode='contain'
           />
           <Text style={styles.groceryName}>Rice</Text>
         </TouchableOpacity>
@@ -143,8 +151,9 @@ export default function HomeScreen({ navigation }) {
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
         <TouchableOpacity style={styles.productCard}>
           <Image
-            source={require('../assets/images/beef.png')} // Thay bằng ảnh beef
+            source={require('../assets/images/beef.png')}
             style={styles.productImage}
+            resizeMode='contain'
           />
           <Text style={styles.productName}>Beef Bone</Text>
           <Text style={styles.productWeight}>1kg, Priceg</Text>
@@ -157,8 +166,9 @@ export default function HomeScreen({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity style={styles.productCard}>
           <Image
-            source={require('../assets/images/chicken.png')} // Thay bằng ảnh chicken
+            source={require('../assets/images/chicken.png')}
             style={styles.productImage}
+            resizeMode='contain'
           />
           <Text style={styles.productName}>Broiler Chicken</Text>
           <Text style={styles.productWeight}>1kg, Priceg</Text>
@@ -178,11 +188,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F5F5',
+    top: 50,
   },
   header: {
-    flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    paddingBottom: 20,
   },
   headerIcon: {
     width: 30,
@@ -191,7 +201,6 @@ const styles = StyleSheet.create({
   locationContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 10,
   },
   locationText: {
     fontSize: 16,
@@ -251,27 +260,33 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 10,
     width: 150,
+    minHeight: 300, // Đảm bảo chiều cao đủ để chứa toàn bộ nội dung
+    alignItems: 'center', // Căn giữa nội dung
   },
   productImage: {
     width: 100,
     height: 100,
-    alignSelf: 'center',
+    resizeMode: 'contain', // Đảm bảo ảnh không bị méo
   },
   productName: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
     marginTop: 10,
+    textAlign: 'center',
   },
   productWeight: {
     fontSize: 14,
     color: '#666',
     marginVertical: 5,
+    textAlign: 'center',
   },
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    width: '100%',
+    marginTop: 20, // Thêm khoảng cách để tránh cắt nội dung
   },
   productPrice: {
     fontSize: 16,
@@ -292,11 +307,13 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 10,
     width: 150,
+    minHeight: 150, // Đảm bảo chiều cao đủ cho groceryCard
+    alignItems: 'center',
   },
   groceryImage: {
     width: 100,
     height: 100,
-    alignSelf: 'center',
+    resizeMode: 'contain',
   },
   groceryName: {
     fontSize: 16,

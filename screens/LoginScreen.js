@@ -13,7 +13,7 @@ export default function LoginScreen({ navigation }) {
       if (userData) {
         const { email: storedEmail, password: storedPassword } = JSON.parse(userData);
         if (email === storedEmail && password === storedPassword) {
-          navigation.navigate('Home'); // Chuyển hướng đến HomeScreen
+          navigation.navigate('Main');
         } else {
           alert('Invalid email or password');
         }
