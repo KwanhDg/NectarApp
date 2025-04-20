@@ -199,6 +199,7 @@ export default function ExploreScreen({ navigation }) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
+            {/* Modal Header với màu trắng */}
             <View style={styles.modalHeader}>
               <TouchableOpacity onPress={() => setIsFilterVisible(false)}>
                 <Icon name="close" size={24} color="#000" />
@@ -207,112 +208,171 @@ export default function ExploreScreen({ navigation }) {
               <View style={{ width: 24 }} />
             </View>
 
-            {/* Category Filter */}
-            <Text style={styles.filterSectionTitle}>CATEGORY</Text>
-            <Pressable
-              style={styles.filterOption}
-              onPress={() => toggleCategory('Eggs')}
-            >
-              <Icon
-                name={selectedCategories.includes('Eggs') ? 'check-box' : 'check-box-outline-blank'}
-                size={20}
-                color={selectedCategories.includes('Eggs') ? '#53B175' : '#666'}
-                style={styles.checkbox}
-              />
-              <Text style={styles.filterOptionText}>Eggs</Text>
-            </Pressable>
-            <Pressable
-              style={styles.filterOption}
-              onPress={() => toggleCategory('Noodles & Pasta')}
-            >
-              <Icon
-                name={selectedCategories.includes('Noodles & Pasta') ? 'check-box' : 'check-box-outline-blank'}
-                size={20}
-                color={selectedCategories.includes('Noodles & Pasta') ? '#53B175' : '#666'}
-                style={styles.checkbox}
-              />
-              <Text style={styles.filterOptionText}>Noodles & Pasta</Text>
-            </Pressable>
-            <Pressable
-              style={styles.filterOption}
-              onPress={() => toggleCategory('Chips & Crisps')}
-            >
-              <Icon
-                name={selectedCategories.includes('Chips & Crisps') ? 'check-box' : 'check-box-outline-blank'}
-                size={20}
-                color={selectedCategories.includes('Chips & Crisps') ? '#53B175' : '#666'}
-                style={styles.checkbox}
-              />
-              <Text style={styles.filterOptionText}>Chips & Crisps</Text>
-            </Pressable>
-            <Pressable
-              style={styles.filterOption}
-              onPress={() => toggleCategory('Fast Food')}
-            >
-              <Icon
-                name={selectedCategories.includes('Fast Food') ? 'check-box' : 'check-box-outline-blank'}
-                size={20}
-                color={selectedCategories.includes('Fast Food') ? '#53B175' : '#666'}
-                style={styles.checkbox}
-              />
-              <Text style={styles.filterOptionText}>Fast Food</Text>
-            </Pressable>
+            {/* Nội dung modal với màu #F5F5F5 */}
+            <ScrollView style={styles.modalBody}>
+              {/* Category Filter */}
+              <Text style={styles.filterSectionTitle}>CATEGORY</Text>
+              <Pressable
+                style={styles.filterOption}
+                onPress={() => toggleCategory('Eggs')}
+              >
+                <Icon
+                  name={selectedCategories.includes('Eggs') ? 'check-box' : 'check-box-outline-blank'}
+                  size={20}
+                  color={selectedCategories.includes('Eggs') ? '#53B175' : '#666'}
+                  style={styles.checkbox}
+                />
+                <Text
+                  style={[
+                    styles.filterOptionText,
+                    { color: selectedCategories.includes('Eggs') ? '#53B175' : '#000' },
+                  ]}
+                >
+                  Eggs
+                </Text>
+              </Pressable>
+              <Pressable
+                style={styles.filterOption}
+                onPress={() => toggleCategory('Noodles & Pasta')}
+              >
+                <Icon
+                  name={selectedCategories.includes('Noodles & Pasta') ? 'check-box' : 'check-box-outline-blank'}
+                  size={20}
+                  color={selectedCategories.includes('Noodles & Pasta') ? '#53B175' : '#666'}
+                  style={styles.checkbox}
+                />
+                <Text
+                  style={[
+                    styles.filterOptionText,
+                    { color: selectedCategories.includes('Noodles & Pasta') ? '#53B175' : '#000' },
+                  ]}
+                >
+                  Noodles & Pasta
+                </Text>
+              </Pressable>
+              <Pressable
+                style={styles.filterOption}
+                onPress={() => toggleCategory('Chips & Crisps')}
+              >
+                <Icon
+                  name={selectedCategories.includes('Chips & Crisps') ? 'check-box' : 'check-box-outline-blank'}
+                  size={20}
+                  color={selectedCategories.includes('Chips & Crisps') ? '#53B175' : '#666'}
+                  style={styles.checkbox}
+                />
+                <Text
+                  style={[
+                    styles.filterOptionText,
+                    { color: selectedCategories.includes('Chips & Crisps') ? '#53B175' : '#000' },
+                  ]}
+                >
+                  Chips & Crisps
+                </Text>
+              </Pressable>
+              <Pressable
+                style={styles.filterOption}
+                onPress={() => toggleCategory('Fast Food')}
+              >
+                <Icon
+                  name={selectedCategories.includes('Fast Food') ? 'check-box' : 'check-box-outline-blank'}
+                  size={20}
+                  color={selectedCategories.includes('Fast Food') ? '#53B175' : '#666'}
+                  style={styles.checkbox}
+                />
+                <Text
+                  style={[
+                    styles.filterOptionText,
+                    { color: selectedCategories.includes('Fast Food') ? '#53B175' : '#000' },
+                  ]}
+                >
+                  Fast Food
+                </Text>
+              </Pressable>
 
-            {/* Brand Filter */}
-            <Text style={styles.filterSectionTitle}>BRAND</Text>
-            <Pressable
-              style={styles.filterOption}
-              onPress={() => toggleBrand('Individual Collection')}
-            >
-              <Icon
-                name={selectedBrands.includes('Individual Collection') ? 'check-box' : 'check-box-outline-blank'}
-                size={20}
-                color={selectedBrands.includes('Individual Collection') ? '#53B175' : '#666'}
-                style={styles.checkbox}
-              />
-              <Text style={styles.filterOptionText}>Individual Collection</Text>
-            </Pressable>
-            <Pressable
-              style={styles.filterOption}
-              onPress={() => toggleBrand('Coola')}
-            >
-              <Icon
-                name={selectedBrands.includes('Coola') ? 'check-box' : 'check-box-outline-blank'}
-                size={20}
-                color={selectedBrands.includes('Coola') ? '#53B175' : '#666'}
-                style={styles.checkbox}
-              />
-              <Text style={styles.filterOptionText}>Coola</Text>
-            </Pressable>
-            <Pressable
-              style={styles.filterOption}
-              onPress={() => toggleBrand('Local')}
-            >
-              <Icon
-                name={selectedBrands.includes('Local') ? 'check-box' : 'check-box-outline-blank'}
-                size={20}
-                color={selectedBrands.includes('Local') ? '#53B175' : '#666'}
-                style={styles.checkbox}
-              />
-              <Text style={styles.filterOptionText}>Local</Text>
-            </Pressable>
-            <Pressable
-              style={styles.filterOption}
-              onPress={() => toggleBrand('Kasi Farms')}
-            >
-              <Icon
-                name={selectedBrands.includes('Kasi Farms') ? 'check-box' : 'check-box-outline-blank'}
-                size={20}
-                color={selectedBrands.includes('Kasi Farms') ? '#53B175' : '#666'}
-                style={styles.checkbox}
-              />
-              <Text style={styles.filterOptionText}>Kasi Farms</Text>
-            </Pressable>
+              {/* Brand Filter */}
+              <Text style={styles.filterSectionTitle}>BRAND</Text>
+              <Pressable
+                style={styles.filterOption}
+                onPress={() => toggleBrand('Individual Collection')}
+              >
+                <Icon
+                  name={selectedBrands.includes('Individual Collection') ? 'check-box' : 'check-box-outline-blank'}
+                  size={20}
+                  color={selectedBrands.includes('Individual Collection') ? '#53B175' : '#666'}
+                  style={styles.checkbox}
+                />
+                <Text
+                  style={[
+                    styles.filterOptionText,
+                    { color: selectedBrands.includes('Individual Collection') ? '#53B175' : '#000' },
+                  ]}
+                >
+                  Individual Collection
+                </Text>
+              </Pressable>
+              <Pressable
+                style={styles.filterOption}
+                onPress={() => toggleBrand('Coola')}
+              >
+                <Icon
+                  name={selectedBrands.includes('Coola') ? 'check-box' : 'check-box-outline-blank'}
+                  size={20}
+                  color={selectedBrands.includes('Coola') ? '#53B175' : '#666'}
+                  style={styles.checkbox}
+                />
+                <Text
+                  style={[
+                    styles.filterOptionText,
+                    { color: selectedBrands.includes('Coola') ? '#53B175' : '#000' },
+                  ]}
+                >
+                  Coola
+                </Text>
+              </Pressable>
+              <Pressable
+                style={styles.filterOption}
+                onPress={() => toggleBrand('Local')}
+              >
+                <Icon
+                  name={selectedBrands.includes('Local') ? 'check-box' : 'check-box-outline-blank'}
+                  size={20}
+                  color={selectedBrands.includes('Local') ? '#53B175' : '#666'}
+                  style={styles.checkbox}
+                />
+                <Text
+                  style={[
+                    styles.filterOptionText,
+                    { color: selectedBrands.includes('Local') ? '#53B175' : '#000' },
+                  ]}
+                >
+                  Local
+                </Text>
+              </Pressable>
+              <Pressable
+                style={styles.filterOption}
+                onPress={() => toggleBrand('Kasi Farms')}
+              >
+                <Icon
+                  name={selectedBrands.includes('Kasi Farms') ? 'check-box' : 'check-box-outline-blank'}
+                  size={20}
+                  color={selectedBrands.includes('Kasi Farms') ? '#53B175' : '#666'}
+                  style={styles.checkbox}
+                />
+                <Text
+                  style={[
+                    styles.filterOptionText,
+                    { color: selectedBrands.includes('Kasi Farms') ? '#53B175' : '#000' },
+                  ]}
+                >
+                  Kasi Farms
+                </Text>
+              </Pressable>
 
-            {/* Apply Filter Button */}
-            <TouchableOpacity style={styles.applyButton} onPress={applyFilters}>
-              <Text style={styles.applyButtonText}>Apply Filter</Text>
-            </TouchableOpacity>
+              {/* Apply Filter Button */}
+              <TouchableOpacity style={styles.applyButton} onPress={applyFilters}>
+                <Text style={styles.applyButtonText}>Apply Filter</Text>
+              </TouchableOpacity>
+            </ScrollView>
           </View>
         </View>
       </Modal>
@@ -455,17 +515,26 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    padding: 20,
     height: '80%',
   },
   modalHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  modalBody: {
+    backgroundColor: '#F5F5F5',
+    padding: 20,
+    flex: 1, 
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   modalTitle: {
     fontSize: 20,
@@ -491,7 +560,6 @@ const styles = StyleSheet.create({
   },
   filterOptionText: {
     fontSize: 16,
-    color: '#000',
   },
   applyButton: {
     backgroundColor: '#53B175',
