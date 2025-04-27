@@ -1,15 +1,43 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, TextInput, Modal, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, TextInput, Modal, Pressable, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { productsData } from '../data'; // Nhập dữ liệu sản phẩm
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { productsData } from '../data';
 
 export default function ExploreScreen({ navigation }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
-  // Lọc sản phẩm dựa trên tìm kiếm và bộ lọc
+  const loadData = async () => {
+    try {
+      const cartData = await AsyncStorage.getItem('cart');
+      const favoritesData = await AsyncStorage.getItem('favorites');
+      
+      const parsedCart = cartData ? JSON.parse(cartData) : [];
+      const parsedFavorites = favoritesData ? JSON.parse(favoritesData) : [];
+      
+      console.log('Loaded cart:', parsedCart);
+      console.log('Loaded favorites:', parsedFavorites);
+      
+      setCartItems(parsedCart);
+      setFavorites(parsedFavorites);
+    } catch (error) {
+      console.error('Error loading data:', error);
+      Alert.alert('Error', 'Failed to load cart or favorites data.');
+    }
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      loadData();
+    }, [])
+  );
+
   const filteredProducts = productsData.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(product.category);
@@ -17,7 +45,53 @@ export default function ExploreScreen({ navigation }) {
     return matchesSearch && matchesCategory && matchesBrand;
   });
 
-  // Chuyển đổi trạng thái chọn danh mục
+  const addToCart = async (product) => {
+    try {
+      console.log('Adding to cart:', product.name);
+      let cart = [...cartItems];
+      const existingItem = cart.find((item) => item.name === product.name);
+      const productToSave = { ...product, image: undefined }; // Bỏ image để tránh lỗi serialize
+      if (existingItem) {
+        cart = cart.map((item) =>
+          item.name === product.name
+            ? { ...item, quantity: (item.quantity || 1) + 1 }
+            : item
+        );
+      } else {
+        cart.push({ ...productToSave, quantity: 1 });
+      }
+      await AsyncStorage.setItem('cart', JSON.stringify(cart));
+      console.log('Updated cart:', cart);
+      setCartItems(cart);
+      Alert.alert('Success', `${product.name} has been added to your cart!`);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      Alert.alert('Error', 'Failed to add item to cart.');
+    }
+  };
+
+  const toggleFavorite = async (product) => {
+    try {
+      console.log('Toggling favorite:', product.name);
+      let updatedFavorites = [...favorites];
+      const isFavorite = updatedFavorites.some((item) => item.name === product.name);
+      const productToSave = { ...product, image: undefined }; // Bỏ image để tránh lỗi serialize
+      if (isFavorite) {
+        updatedFavorites = updatedFavorites.filter((item) => item.name !== product.name);
+        Alert.alert('Removed', `${product.name} has been removed from your favorites.`);
+      } else {
+        updatedFavorites.push(productToSave);
+        Alert.alert('Added', `${product.name} has been added to your favorites!`);
+      }
+      await AsyncStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+      console.log('Updated favorites:', updatedFavorites);
+      setFavorites(updatedFavorites);
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+      Alert.alert('Error', 'Failed to update favorites.');
+    }
+  };
+
   const toggleCategory = (category) => {
     if (selectedCategories.includes(category)) {
       setSelectedCategories(selectedCategories.filter((item) => item !== category));
@@ -26,7 +100,6 @@ export default function ExploreScreen({ navigation }) {
     }
   };
 
-  // Chuyển đổi trạng thái chọn thương hiệu
   const toggleBrand = (brand) => {
     if (selectedBrands.includes(brand)) {
       setSelectedBrands(selectedBrands.filter((item) => item !== brand));
@@ -35,19 +108,16 @@ export default function ExploreScreen({ navigation }) {
     }
   };
 
-  // Áp dụng bộ lọc và đóng modal
   const applyFilters = () => {
     setIsFilterVisible(false);
   };
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Find Products</Text>
       </View>
 
-      {/* Search Bar and Filter Icon */}
       <View style={styles.searchRow}>
         <View style={styles.searchContainer}>
           <Icon name="search" size={20} color="#666" style={styles.searchIcon} />
@@ -64,10 +134,8 @@ export default function ExploreScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* Content */}
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {searchQuery === '' ? (
-          // Hiển thị danh mục khi thanh tìm kiếm trống
           <>
             <View style={styles.categoryRow}>
               <TouchableOpacity style={[styles.categoryCard, { backgroundColor: '#F4F7F3' }]}>
@@ -128,7 +196,6 @@ export default function ExploreScreen({ navigation }) {
             </View>
           </>
         ) : (
-          // Hiển thị kết quả tìm kiếm khi có nội dung trong thanh tìm kiếm
           <View>
             {[...Array(Math.ceil(filteredProducts.length / 2))].map((_, index) => {
               const productIndex = index * 2;
@@ -153,9 +220,45 @@ export default function ExploreScreen({ navigation }) {
                         </Text>
                         <View style={styles.priceContainer}>
                           <Text style={styles.productPrice}>${product1.price.toFixed(2)}</Text>
-                          <TouchableOpacity style={styles.addButton}>
-                            <Icon name="add" size={20} color="#fff" />
-                          </TouchableOpacity>
+                          <View style={styles.actionButtons}>
+                            <TouchableOpacity
+                              style={styles.favoriteButton}
+                              onPress={() => toggleFavorite(product1)}
+                            >
+                              <Icon
+                                name={
+                                  favorites.some((item) => item.name === product1.name)
+                                    ? 'favorite'
+                                    : 'favorite-border'
+                                }
+                                size={20}
+                                color={
+                                  favorites.some((item) => item.name === product1.name)
+                                    ? '#FF0000'
+                                    : '#000'
+                                }
+                              />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              style={[
+                                styles.addButton,
+                                cartItems.some((item) => item.name === product1.name) && {
+                                  backgroundColor: '#E0E0E0',
+                                },
+                              ]}
+                              onPress={() => addToCart(product1)}
+                            >
+                              <Icon
+                                name={
+                                  cartItems.some((item) => item.name === product1.name)
+                                    ? 'check'
+                                    : 'add'
+                                }
+                                size={20}
+                                color="#fff"
+                              />
+                            </TouchableOpacity>
+                          </View>
                         </View>
                       </View>
                     </TouchableOpacity>
@@ -176,9 +279,45 @@ export default function ExploreScreen({ navigation }) {
                         </Text>
                         <View style={styles.priceContainer}>
                           <Text style={styles.productPrice}>${product2.price.toFixed(2)}</Text>
-                          <TouchableOpacity style={styles.addButton}>
-                            <Icon name="add" size={20} color="#fff" />
-                          </TouchableOpacity>
+                          <View style={styles.actionButtons}>
+                            <TouchableOpacity
+                              style={styles.favoriteButton}
+                              onPress={() => toggleFavorite(product2)}
+                            >
+                              <Icon
+                                name={
+                                  favorites.some((item) => item.name === product2.name)
+                                    ? 'favorite'
+                                    : 'favorite-border'
+                                }
+                                size={20}
+                                color={
+                                  favorites.some((item) => item.name === product2.name)
+                                    ? '#FF0000'
+                                    : '#000'
+                                }
+                              />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              style={[
+                                styles.addButton,
+                                cartItems.some((item) => item.name === product2.name) && {
+                                  backgroundColor: '#E0E0E0',
+                                },
+                              ]}
+                              onPress={() => addToCart(product2)}
+                            >
+                              <Icon
+                                name={
+                                  cartItems.some((item) => item.name === product2.name)
+                                    ? 'check'
+                                    : 'add'
+                                }
+                                size={20}
+                                color="#fff"
+                              />
+                            </TouchableOpacity>
+                          </View>
                         </View>
                       </View>
                     </TouchableOpacity>
@@ -190,7 +329,6 @@ export default function ExploreScreen({ navigation }) {
         )}
       </ScrollView>
 
-      {/* Filter Modal */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -199,7 +337,6 @@ export default function ExploreScreen({ navigation }) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            {/* Modal Header với màu trắng */}
             <View style={styles.modalHeader}>
               <TouchableOpacity onPress={() => setIsFilterVisible(false)}>
                 <Icon name="close" size={24} color="#000" />
@@ -208,9 +345,7 @@ export default function ExploreScreen({ navigation }) {
               <View style={{ width: 24 }} />
             </View>
 
-            {/* Nội dung modal với màu #F5F5F5 */}
             <ScrollView style={styles.modalBody}>
-              {/* Category Filter */}
               <Text style={styles.filterSectionTitle}>CATEGORY</Text>
               <Pressable
                 style={styles.filterOption}
@@ -289,7 +424,6 @@ export default function ExploreScreen({ navigation }) {
                 </Text>
               </Pressable>
 
-              {/* Brand Filter */}
               <Text style={styles.filterSectionTitle}>BRAND</Text>
               <Pressable
                 style={styles.filterOption}
@@ -368,7 +502,6 @@ export default function ExploreScreen({ navigation }) {
                 </Text>
               </Pressable>
 
-              {/* Apply Filter Button */}
               <TouchableOpacity style={styles.applyButton} onPress={applyFilters}>
                 <Text style={styles.applyButtonText}>Apply Filter</Text>
               </TouchableOpacity>
@@ -488,11 +621,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     textAlign: 'left',
   },
-  productPrice: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000',
-  },
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -501,6 +629,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
   },
+  actionButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  favoriteButton: {
+    marginRight: 10,
+  },
   addButton: {
     backgroundColor: '#53B175',
     borderRadius: 5,
@@ -508,6 +643,11 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  productPrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000',
   },
   modalContainer: {
     flex: 1,
@@ -532,7 +672,7 @@ const styles = StyleSheet.create({
   modalBody: {
     backgroundColor: '#F5F5F5',
     padding: 20,
-    flex: 1, 
+    flex: 1,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },

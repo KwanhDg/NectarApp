@@ -20,7 +20,7 @@ import ProductDetailScreen from './screens/ProductDetailScreen';
 import ExploreScreen from './screens/ExploreScreen';
 import BeveragesScreen from './screens/BeveragesScreen';
 import CartScreen from './screens/CartScreen';
-import FavouriteScreen from './screens/FavouriteScreen';
+import FavoritesScreen from './screens/FavoritesScreen'; // Đổi tên từ FavouriteScreen thành FavoritesScreen
 import AccountScreen from './screens/AccountScreen';
 
 const Stack = createNativeStackNavigator();
@@ -36,7 +36,7 @@ function MainTabs() {
           if (route.name === 'HomeTab') iconName = 'store';
           else if (route.name === 'Explore') iconName = 'explore';
           else if (route.name === 'Cart') iconName = 'shopping-cart';
-          else if (route.name === 'Favourite') iconName = 'favorite';
+          else if (route.name === 'Favorites') iconName = 'favorite'; // Đổi tên tab thành Favorites
           else if (route.name === 'Account') iconName = 'person';
           return <Icon name={iconName} size={size} color={color} />;
         },
@@ -64,8 +64,8 @@ function MainTabs() {
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Favourite"
-        component={FavouriteScreen}
+        name="Favorites" // Đổi tên từ Favourite thành Favorites
+        component={FavoritesScreen}
         options={{ headerShown: false }}
       />
       <Tab.Screen
